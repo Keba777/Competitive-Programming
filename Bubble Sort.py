@@ -1,0 +1,13 @@
+totalSwaps = 0
+for i in range(0, len(a)-1):
+	numSwaps = 0
+	for j in range(0,len(a)-1):
+		if a[j] > a[j+1]:
+			a[j],a[j+1] = a[j+1], a[j]
+			numSwaps += 1
+			totalSwaps +=1
+	if numSwaps == 0:
+		break
+print("Array is sorted in {} swaps.".format(totalSwaps))
+print("First Element: {}".format(a[0]))
+print("Last Element: {}".format(a[len(a)-1]))
