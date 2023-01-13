@@ -14,20 +14,22 @@ import sys
 #  2. INTEGER_ARRAY arr
 #
 
+
 def insertionSort1(n, arr):
-    # Write your code here
-    k = arr[-1]
-    i = n-1
-    while i > 0 and arr[i-1]>k:
-        arr[i] = arr[i-1]
-        print(*arr)
-        i -= 1
-    arr[i] = k
+    for i in range(1, n):
+        key = arr[i]
+        j = i - 1
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+            print(*arr)
+        arr[j + 1] = key
     print(*arr)
 
-if __name__ == '__main__':
-    n = int(input().strip())
 
-    arr = list(map(int, input().rstrip().split()))
+if __name__ == '__main__':
+    n = int(input("Value: ").strip())
+
+    arr = list(map(int, input("Array: ").rstrip().split()))
 
     insertionSort1(n, arr)
