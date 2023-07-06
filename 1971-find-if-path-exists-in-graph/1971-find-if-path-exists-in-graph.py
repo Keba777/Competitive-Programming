@@ -1,20 +1,19 @@
+class UnionFind:
+    def __init__(self, n):
+        self.parent = list(range(n))
+    
+    def find(self, x):
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
+        return self.parent[x]
+    
+    def union(self, x, y):
+        self.parent[self.find(x)] = self.find(y)
+
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        graph = defaultdict(list)
+        uf = UnionFind(n)
         for u, v in edges:
-            graph[u].append(v)
-            graph[v].append(u)
-
-        visited = set()
-        queue = deque([source])
-        visited.add(source)  
-        while queue:
-            current = queue.popleft()
-            if current == destination:
-                return True
-            for neighbor in graph[current]:
-                if neighbor not in visited:
-                    visited.add(neighbor)
-                    queue.append(neighbor)
-
-        return False
+            uf.union(u, v)
+        
+        return uf.find(source) == uf.find(destination)
