@@ -18,7 +18,7 @@ class Solution:
       insert(word)
 
     def getScore(word: str) -> int:
-      node: TrieNode = root
+      node = root
       score = 0
       for c in word:
         node = node.children[c]
