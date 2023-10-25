@@ -9,27 +9,29 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-        nodes = []
-        values = []
-        def inorder(node):
-            if node:
-                inorder(node.left)
-                nodes.append(node)
-                values.append(node.val)
-                inorder(node.right)
-                
-        inorder(root)
-        
-        values.sort()
-        swap1, swap2 = None, None
-        for i in range(len(nodes)):
-            if nodes[i].val != values[i]:
-                if swap1 is None:
-                    swap1 = nodes[i]
-                else:
-                    swap2 = nodes[i]
-                    break
-                    
-        swap1.val, swap2.val = swap2.val, swap1.val
+        first_node = None
+        second_node = None
+        prev_node = TreeNode(float('-inf'))
+        stack = []
 
-        
+        # Perform inorder traversal using BFS
+        while stack or root:
+            while root:
+                stack.append(root)
+                root = root.left
+
+            root = stack.pop()
+            
+            # Check if the current node violates the BST property
+            if root.val < prev_node.val:
+                if not first_node:
+                    first_node = prev_node
+                second_node = root
+            prev_node = root
+
+            root = root.right
+
+        # Swap the values of the two nodes
+        first_node.val, second_node.val = second_node.val, first_node.val
+
+        return root
